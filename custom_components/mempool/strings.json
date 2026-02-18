@@ -1,0 +1,23 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Mempool",
+        "description": "Connect to a mempool.space instance to monitor Bitcoin network metrics.",
+        "data": {
+          "base_url": "Instance URL"
+        },
+        "data_description": {
+          "base_url": "URL of your mempool.space instance. Leave default for the public API."
+        }
+      }
+    },
+    "error": {
+      "cannot_connect": "Failed to connect to the mempool.space instance.",
+      "unknown": "Unexpected error."
+    },
+    "abort": {
+      "already_configured": "This mempool.space instance is already configured."
+    }
+  }
+}

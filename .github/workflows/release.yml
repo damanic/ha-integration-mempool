@@ -1,0 +1,38 @@
+name: Release
+
+on:
+  release:
+    types:
+      - published
+
+permissions: {}
+
+jobs:
+  release:
+    name: Prepare release
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout the repository
+        uses: actions/checkout@v4
+
+      - name: Adjust version number
+        shell: bash
+        run: |
+          version="${{ github.event.release.tag_name }}"
+          version="${version#v}"
+          jq --arg version "$version" '.version = $version' \
+            "${{ github.workspace }}/custom_components/mempool/manifest.json" > tmp.json \
+            && mv tmp.json "${{ github.workspace }}/custom_components/mempool/manifest.json"
+
+      - name: Create zip for release
+        shell: bash
+        run: |
+          cd "${{ github.workspace }}/custom_components/mempool"
+          zip mempool.zip -r ./
+
+      - name: Upload zip to release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: ${{ github.workspace }}/custom_components/mempool/mempool.zip
