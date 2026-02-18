@@ -1,4 +1,8 @@
-# Mempool.space for Home Assistant
+<p align="center">
+  <img src="custom_components/mempool/logo.png" alt="Mempool logo" width="128">
+</p>
+
+# Mempool.space integration for Home Assistant
 
 A Home Assistant custom integration that exposes Bitcoin network metrics from [mempool.space](https://mempool.space) as sensors. Works with both the public API and self-hosted instances.
 
@@ -80,7 +84,7 @@ The BTC Price sensor stores USD as its state and exposes all other currencies (E
 
 ## Installation
 
-### HACS (not yet available)
+### HACS (not yet published)
 
 1. Open HACS in your Home Assistant instance.
 2. Go to **Integrations** → **Custom repositories**.
