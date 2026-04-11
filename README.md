@@ -1,90 +1,55 @@
-<p align="center">
-  <img src="custom_components/mempool/logo.png" alt="Mempool logo" width="128">
-</p>
+![Mempool logo](https://raw.githubusercontent.com/damanic/ha-integration-mempool/refs/heads/master/custom_components/mempool/brand/logo.png)
 
 # Mempool.space integration for Home Assistant
 
 A Home Assistant custom integration that exposes Bitcoin network metrics from [mempool.space](https://mempool.space) as sensors. Works with both the public API and self-hosted instances.
 
-## Sensors
+### Key Features
+- 🚀 **Recommended Fees**: Real-time fee estimates (Fastest, Half Hour, Economy).
+- ⛓️ **Blockchain Stats**: Monitor block height and difficulty adjustments.
+- ⛏️ **Mining Insights**: Track network hashrate and miner rewards.
+- 💰 **BTC Price**: Real-time Bitcoin price in multiple currencies.
 
-All sensors appear under a single **Mempool** device, grouped by the API endpoint they source data from.
+---
 
-### Recommended Fees
-`GET /api/v1/fees/recommended`
+### Sensors
+All sensors appear under a single **Mempool** device.
 
-| Sensor | Unit | Description |
-|--------|------|-------------|
-| Fastest Fee | sat/vB | Next-block fee estimate |
-| Half Hour Fee | sat/vB | ~30 minute confirmation target |
-| Hour Fee | sat/vB | ~60 minute confirmation target |
-| Economy Fee | sat/vB | Low-priority fee estimate |
-| Minimum Fee | sat/vB | Minimum relay fee |
+**Recommended Fees** 
+- **Fastest Fee**: Next-block fee estimate (sat/vB)
+- **Half Hour Fee**: ~30 min confirmation target (sat/vB)
+- **Hour Fee**: ~60 min confirmation target (sat/vB)
+- **Economy Fee**: Low-priority fee estimate (sat/vB)
+- **Minimum Fee**: Minimum relay fee (sat/vB)
 
-### Mempool
-`GET /api/mempool`
+**Blockchain & Mempool**
+- **Block Height**: Current blockchain tip height
+- **Mempool TX Count**: Unconfirmed transaction count
+- **Mempool Size**: Mempool virtual size (vB)
+- **Network Hashrate**: Current network hashrate (EH/s)
+- **Network Difficulty**: Current mining difficulty
 
-| Sensor | Unit | Description |
-|--------|------|-------------|
-| Mempool TX Count | transactions | Unconfirmed transaction count |
-| Mempool Size | vB | Mempool virtual size |
+**Difficulty Adjustment** 
+- **Progress**: % through current retarget epoch
+- **Estimate**: % estimated next adjustment
+- **Remaining Blocks**: Blocks until next retarget
 
-### Block Height
-`GET /api/blocks/tip/height`
+**Mining Reward Stats** (Last 144 blocks)
+- **Total Miners Reward**: Total revenue (BTC)
+- **Avg Block Fees**: Average fees per block (BTC)
+- **Avg TX Fee**: Average fee per transaction (sats)
 
-| Sensor | Unit | Description |
-|--------|------|-------------|
-| Block Height | — | Current blockchain tip height |
+**BTC Price** 
+- **USD State**: Current Bitcoin price in USD.
+- **Attributes**: EUR, GBP, CAD, etc. Access via templates:
+    - `{{ state_attr('sensor.mempool_btc_price', 'eur') }}`
 
-### Difficulty Adjustment
-`GET /api/v1/difficulty-adjustment`
 
-| Sensor | Unit | Description |
-|--------|------|-------------|
-| Difficulty Adjustment Progress | % | Progress through current retarget epoch |
-| Difficulty Adjustment Estimate | % | Estimated next difficulty adjustment |
-| Difficulty Adjustment Remaining Blocks | blocks | Blocks until next retarget |
 
-### Mining Hashrate
-`GET /api/v1/mining/hashrate/1m`
-
-| Sensor | Unit | Description |
-|--------|------|-------------|
-| Network Hashrate | EH/s | Current network hashrate |
-| Network Difficulty | — | Current mining difficulty |
-
-### Mining Reward Stats
-`GET /api/v1/mining/reward-stats/144`
-
-| Sensor | Unit | Description |
-|--------|------|-------------|
-| Total Miners Reward (144 blocks) | BTC | Total miner revenue over the last 144 blocks |
-| Avg Block Fees (144 blocks) | BTC | Average fees per block over the last 144 blocks |
-| Avg TX Fee (144 blocks) | sats | Average fee per transaction over the last 144 blocks |
-
-### Latest Block
-`GET /api/blocks/tip/hash` + `GET /api/v1/block/{hash}`
-
-| Sensor | Unit | Description |
-|--------|------|-------------|
-| Latest Block Miner | — | Mining pool that found the latest block (slug and miner names as attributes) |
-
-### Price
-`GET /api/v1/prices`
-
-| Sensor | Unit | Description |
-|--------|------|-------------|
-| BTC Price | USD | Bitcoin price with other currencies as attributes |
-
-The BTC Price sensor stores USD as its state and exposes all other currencies (EUR, GBP, CAD, etc.) as entity attributes. Access them via templates:
-
-```yaml
-{{ state_attr('sensor.mempool_btc_price', 'eur') }}
-```
 
 ## Installation
 
-### HACS (not yet published)
+### HACS
 
 1. Open HACS in your Home Assistant instance.
 2. Go to **Integrations** → **Custom repositories**.
