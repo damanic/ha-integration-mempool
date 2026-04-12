@@ -46,6 +46,14 @@ All sensors appear under a single **Mempool** device.
 
 
 
+## Example Use Cases
+
+### Mining Break-Even Calculator
+
+You can use the sensors from this integration to calculate the maximum electricity price (per kWh) at which your miner breaks even. This template replaces hardcoded fee estimates, exchange rates, and block subsidy values with live data from the Mempool integration.
+
+See the [Mining Break-Even kWh Price Template](mining-breakeven-template.md) for more details and the full configuration example.
+
 
 ## Installation
 
